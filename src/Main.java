@@ -7,17 +7,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+
+
 public class Main {
-    public static void main(String[] args) {
-        List<Emp> emp = Arrays.asList(
-                new Emp ("Aohn", "Fale"),
-                new Emp ("Beter", "ESam"),
-                new Emp ("Chomas", "DSmith")
-        );
-        List<Emp> result = new ArrayList();
-        result =
-        emp.stream().sorted(Comparator.comparing(Emp::getfName).reversed()
-                .thenComparing(Emp::getlName)).collect(Collectors.toList());
-        result.forEach(r -> System.out.println(r.getfName() +" "+ r.getlName()));
+
+    public enum USCurrency {
+        PENNY (1),
+        NICKLE (5),
+        DIME (10),
+        QUARTER (25);
+
+        private int value;
+
+        USCurrency(int value) {
+            this.value = value;
+        }
+        public int getValue() {return value;}
     }
+    public static void main(String[] args) {
+            USCurrency usCoin = USCurrency.DIME;
+            System.out.println(usCoin.getValue());
+
+       }
 }
