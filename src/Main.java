@@ -1,15 +1,22 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.UnaryOperator;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.stream.Stream;
 
 public class Main {
 
-    public static void main(String[] args) {
-        DoubleStream str= DoubleStream.of(1.0,2.0,3.0,4.0);
-        Double d = str.average().getAsDouble();
-        System.out.println(d);
+    public static void main(String[] args) throws IOException {
+        System.out.println(System.getProperty("user.home"));
+        Stream<Path> files = Files.walk(Paths.get(System.getProperty("user.home")));
+        files.forEach(fName -> {
+            try {
+                Path aPath = fName.toAbsolutePath();
+                System.out.println(fName + ":" + Files.readAttributes(aPath, BasicFileAttributes.class).creationTime());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 }
