@@ -1,22 +1,32 @@
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.InvocationHandler;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(System.getProperty("user.home"));
-        Stream<Path> files = Files.walk(Paths.get(System.getProperty("user.home")));
-        files.forEach(fName -> {
-            try {
-                Path aPath = fName.toAbsolutePath();
-                System.out.println(fName + ":" + Files.readAttributes(aPath, BasicFileAttributes.class).creationTime());
-            } catch (IOException ex) {
-                ex.printStackTrace();
+    public static void main(String[] args) throws FileNotFoundException {
+
+        int i;
+        char c;
+        try (FileInputStream fis = new FileInputStream("course.txt");
+             InputStreamReader isr = new InputStreamReader(fis);) {
+            while (isr.ready()) {
+                isr.skip(2);
+                i = isr.read();
+                c = (char) i;
+                System.out.println(c);
             }
-        });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
